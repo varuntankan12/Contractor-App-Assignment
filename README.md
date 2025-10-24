@@ -42,16 +42,20 @@ Since this is a single `.jsx` file, setting up the project requires a basic Reac
 
 **Clone the Repository:**
 
-# Clone the repository
+1. Clone the repository
+
   git clone https://github.com/varuntankan12/Contractor-App-Assignment.git
 
-# Change directory
+2. Change directory
+   
   cd Contractor-App-Assignment
 
-# Install dependencies
+3. Install dependencies
+
   npm install
 
-# Run the application using : 
+4. Run the application using : 
+
   npm run dev 
 
 Visit [http://localhost:5173](http://localhost:5173) to view the dashboard. 
