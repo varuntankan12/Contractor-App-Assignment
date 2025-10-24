@@ -10,6 +10,7 @@ import { useCallback, useState } from "react";
 import UpdateJob from "../pages/UpdateJob";
 import { JobProgressData } from "../statics/JobProgressData";
 import JobProgressPage from "../pages/JobProgress";
+import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
 
@@ -53,11 +54,52 @@ const AppRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/dashboard" element={<Dashboard jobs={jobs} isLoading={isLoading} error={error} />} />
+            {/* <Route path="/dashboard" element={<Dashboard jobs={jobs} isLoading={isLoading} error={error} />} />
             <Route path="/joboffers" element={<JobOfferPage offers={offers} handleJobAction={handleJobAction} />} />
 
             <Route path="/updatejob/:jobId" element={<UpdateJob jobs={jobs} setJobs={setJobs} />} />
-            <Route path="/jobprogress/:jobId" element={<JobProgressPage jobs={jobs} setJobs={setJobs} inProgressData={inProgressData} setInProgressData={setInProgressData} />} />
+            <Route path="/jobprogress/:jobId" element={<JobProgressPage jobs={jobs} setJobs={setJobs} inProgressData={inProgressData} setInProgressData={setInProgressData} />} /> */}
+
+            <Route
+                path="/dashboard"
+                element={
+                    <ProtectedRoute>
+                        <Dashboard jobs={jobs} isLoading={isLoading} error={error} />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/joboffers"
+                element={
+                    <ProtectedRoute>
+                        <JobOfferPage offers={offers} handleJobAction={handleJobAction} />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/updatejob/:jobId"
+                element={
+                    <ProtectedRoute>
+                        <UpdateJob jobs={jobs} setJobs={setJobs} />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/jobprogress/:jobId"
+                element={
+                    <ProtectedRoute>
+                        <JobProgressPage
+                            jobs={jobs}
+                            setJobs={setJobs}
+                            inProgressData={inProgressData}
+                            setInProgressData={setInProgressData}
+                        />
+                    </ProtectedRoute>
+                }
+            />
         </Routes>
     );
 };

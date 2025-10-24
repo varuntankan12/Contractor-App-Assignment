@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NavigationMenu = ({ closeMenu }) => {
     return (
-        <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-40 animate-slide-left">
+        <div className="fixed top-0 right-0 h-fit w-64 bg-white shadow-2xl z-40 animate-slide-left mt-20">
             <nav className="flex flex-col space-y-6 p-6">
                 <Link to="/dashboard" onClick={closeMenu} className="flex items-center text-[#4A3F35] font-medium">
                     <User className="mr-3" /> Dashboard

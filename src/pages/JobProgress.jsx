@@ -4,6 +4,7 @@ import { ArrowLeft, CheckSquare, ImagePlus, Save, CheckCircle2, Trash2, Plus, Ca
 import { formatDateTime } from "../statics/FormatDateTime";
 import ImageUploaderModal from "../components/modals/ImageUploaderModal";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
+import Footer from "../components/Footer";
 
 
 const MIN_IMAGES_REQUIRED = 3;
@@ -252,6 +253,7 @@ const JobProgressPage = ({ jobs, setJobs, inProgressData, setInProgressData }) =
                 onImageSave={handleImageSave}
             />
             <ConfirmationModal isOpen={isConfirmOpen} title="Confirm Completion" message="Are you sure you want to mark this job as completed? This action cannot be undone." onConfirm={confirmCompletion} onCancel={() => setIsConfirmOpen(false)} />
+            <Footer />
         </div>
     );
 };

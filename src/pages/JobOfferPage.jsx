@@ -1,10 +1,11 @@
 // import React, { useState, useMemo } from "react";
+import Footer from "../components/Footer";
 import JobOfferCard from "../components/JobOfferCard";
 
 const JobOfferPage = ({ offers, handleJobAction }) => {
 
     return (
-        <div className="p-4 pt-24 min-h-screen bg-gray-50">
+        <div className="p-4 py-24 min-h-screen bg-gray-50">
             <h2 className="text-2xl font-extrabold text-gray-900 mx-4">
                 Job Offers
             </h2>
@@ -31,7 +32,7 @@ const JobOfferPage = ({ offers, handleJobAction }) => {
                 </div>
             )}
 
-    
+            <Footer />
         </div>
     );
 };

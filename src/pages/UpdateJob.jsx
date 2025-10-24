@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Calendar } from "lucide-react";
+import Footer from '../components/Footer';
 
 const UpdateJob = ({ jobs, setJobs }) => {
     console.log(jobs);
@@ -88,7 +89,7 @@ const UpdateJob = ({ jobs, setJobs }) => {
     };
 
     return (
-        <div className="p-4 pt-24 min-h-screen bg-gray-50">
+        <div className="p-4 py-24 min-h-screen bg-gray-50">
             {/* Back Button */}
             <button
                 onClick={() => navigate("/dashboard")}
@@ -187,6 +188,7 @@ const UpdateJob = ({ jobs, setJobs }) => {
                     </>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }
