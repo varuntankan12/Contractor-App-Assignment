@@ -2,11 +2,12 @@ import React, { useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Calendar } from "lucide-react";
 import Footer from '../components/Footer';
+import { formatDateTime } from '../statics/FormatDateTime';
 
 const UpdateJob = ({ jobs, setJobs }) => {
-    console.log(jobs);
+    // console.log(jobs);
     const { jobId } = useParams();
-    console.log(jobId);
+    // console.log(jobId);
     const navigate = useNavigate();
 
     const job = useMemo(() => jobs.find((j) => j.id === jobId), [jobs, jobId]);
@@ -35,21 +36,44 @@ const UpdateJob = ({ jobs, setJobs }) => {
         );
     }
 
-    // Helper functions
-    const formatDate = (isoString) =>
-        new Date(isoString).toLocaleString("en-GB", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-        });
+    // // Helper functions
+    // const formatDate = (isoString) =>
+    //     new Date(isoString).toLocaleString("en-GB", {
+    //         day: "2-digit",
+    //         month: "2-digit",
+    //         year: "numeric",
+    //         hour: "2-digit",
+    //         minute: "2-digit",
+    //     });
 
-    const formatDateOnly = (isoString) =>
-        new Date(isoString).toISOString().split("T")[0];
+    // const formatDateOnly = (isoString) =>
+    //     new Date(isoString).toISOString().split("T")[0];
 
-    const requestedDate = formatDate(job.startTime);
-    const completionDate = job.endTime ? formatDate(job.endTime) : "--/--/----";
+    const toInputDateFormat = (dateString) => {
+        // Example input: "19 Oct 2025 10:00 am"
+        const [day, monthStr, year] = dateString.split(" ");
+        const monthMap = {
+            Jan: "01",
+            Feb: "02",
+            Mar: "03",
+            Apr: "04",
+            May: "05",
+            Jun: "06",
+            Jul: "07",
+            Aug: "08",
+            Sep: "09",
+            Oct: "10",
+            Nov: "11",
+            Dec: "12",
+        };
+
+        const month = monthMap[monthStr];
+        return `${year}-${month}-${day.padStart(2, "0")}`; // e.g. "2025-10-19"
+    };
+
+    const requestedDate = formatDateTime(job.startTime);
+    const minDateForInput = toInputDateFormat(requestedDate);
+    const completionDate = job.endTime ? formatDateTime(job.endTime) : "--/--/----";
     const isStarted = job.status === "in-progress" || job.status === "completed";
 
     // Start Job Handler
@@ -159,7 +183,7 @@ const UpdateJob = ({ jobs, setJobs }) => {
                                 type="date"
                                 value={estimatedDate}
                                 onChange={(e) => setEstimatedDate(e.target.value)}
-                                min={formatDateOnly(new Date().toISOString())}
+                                min={minDateForInput} // ✅ now uses requested job date as minimum
                                 className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 ${errorMessage ? "border-red-500" : "border-gray-300"
                                     }`}
                             />
