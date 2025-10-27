@@ -34,22 +34,39 @@ const Signup = () => {
             return;
         }
 
-        // Save user to localStorage (overwrite if already exists)
-        const userData = {
+        // Retrieve existing users from localStorage or initialize an empty array
+        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Check if email already exists
+        const userExists = existingUsers.some(user => user.email === email);
+        if (userExists) {
+            setError("An account with this email already exists!");
+            return;
+        }
+
+        // Create new user object
+        const newUser = {
             firstName,
             lastName,
             email,
             password,
+            isLoggedIn: true
         };
-        localStorage.setItem("user", JSON.stringify(userData));
+
+        // Add new user to existing users
+        existingUsers.push(newUser);
+
+        // Save updated users array back to localStorage
+        localStorage.setItem("users", JSON.stringify(existingUsers));
 
         setError("");
         navigate("/login");
     };
 
+
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-50">
-            
+
 
             {/* Main Content */}
             <div className="flex flex-col justify-center w-full max-w-md px-6 py-10 mt-20">

@@ -10,10 +10,11 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    // ✅ Check if already logged in
     useEffect(() => {
-        const user = localStorage.getItem("user");
-        if (user) {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const isAnyUserLoggedIn = storedUsers.some(user => user.isLoggedIn === true);
+
+        if (isAnyUserLoggedIn) {
             navigate("/dashboard");
         }
     }, [navigate]);
@@ -22,21 +23,39 @@ const Login = () => {
         e.preventDefault();
 
         // Basic validation
-        if (email.trim() == "" || password.trim() == "") {
+        if (email.trim() === "" || password.trim() === "") {
             setError("Please fill in all fields.");
             return;
         }
 
-        // Fake user validation — you can replace this later with an API call
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (!storedUser) {
-            setError("No user found, Please Sign Up");
-        } else if (storedUser.email === email && storedUser.password === password) {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+        if (storedUsers.length === 0) {
+            setError("No users found. Please sign up first.");
+            return;
+        }
+
+        const matchedUserIndex = storedUsers.findIndex(
+            user => user.email === email && user.password === password
+        );
+
+        if (matchedUserIndex !== -1) {
+            const updatedUsers = storedUsers.map(user => ({
+                ...user,
+                isLoggedIn: false
+            }));
+
+            updatedUsers[matchedUserIndex].isLoggedIn = true;
+
+            localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+            setError("");
             navigate("/dashboard");
         } else {
             setError("Invalid email or password. Please try again.");
         }
     };
+
 
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-50">

@@ -5,12 +5,20 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Clear all stored user data
-        localStorage.removeItem("user");
+        const usersData = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Set all users' isLoggedIn to false
+        const updatedUsers = usersData.map(user => ({
+            ...user,
+            isLoggedIn: false,
+        }));
+
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
 
         alert("You have been logged out successfully.");
         navigate("/login");
     }, [navigate]);
+
 
     return null; // No UI, just performs logout
 };

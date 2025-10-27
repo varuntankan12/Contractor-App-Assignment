@@ -26,7 +26,7 @@ const Header = ({ isLoggedIn }) => {
                     {onAuthPage ? (
                         <button
                             onClick={() => navigate("/login")}
-                            className="px-4 py-2 bg-[#4A3F35] text-white rounded-lg hover:bg-[#3a3029] transition"
+                            className="px-3 p-1 text-sm rounded-lg hover:bg-slate-300/20 transition"
                         >
                             Login / Register
                         </button>
