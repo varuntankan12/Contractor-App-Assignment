@@ -3,7 +3,7 @@ import Button from "../components/common/Button";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -50,6 +50,7 @@ const Login = () => {
             localStorage.setItem("users", JSON.stringify(updatedUsers));
 
             setError("");
+            setIsLoggedIn(true);
             navigate("/dashboard");
         } else {
             setError("Invalid email or password. Please try again.");
@@ -59,7 +60,7 @@ const Login = () => {
 
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-50">
-            
+
 
             {/* Main Content */}
             <div className="flex flex-col justify-center w-full max-w-md px-6 py-10 mt-20">

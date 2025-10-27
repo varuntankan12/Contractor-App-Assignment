@@ -12,7 +12,7 @@ import { JobProgressData } from "../statics/JobProgressData";
 import JobProgressPage from "../pages/JobProgress";
 import ProtectedRoute from "./ProtectedRoute";
 
-const AppRoutes = () => {
+const AppRoutes = ({ isLoggedIn, setIsLoggedIn }) => {
 
     const { jobs, isLoading, error, setJobs } = useJobData();
     const [offers, setOffers] = useState(MockNewOffersData);
@@ -51,9 +51,9 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/logout" element={<Logout />} />
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/signup" element={<Signup setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
             {/* <Route path="/dashboard" element={<Dashboard jobs={jobs} isLoading={isLoading} error={error} />} />
             <Route path="/joboffers" element={<JobOfferPage offers={offers} handleJobAction={handleJobAction} />} />
 

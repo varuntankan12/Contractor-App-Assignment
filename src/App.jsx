@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "./components/Header";
 import AppRoutes from "./routes/AppRoutes";
 
@@ -11,12 +12,12 @@ function App() {
         return users.some(user => user.isLoggedIn === true);
     }
 
-    const isLoggedIn = checkIfAnyUserLoggedIn();
+    const [isLoggedIn, setIsLoggedIn] = useState(checkIfAnyUserLoggedIn() || false);
 
     return (
         <div className="font-inter">
             <Header isLoggedIn={isLoggedIn} />
-            <AppRoutes />
+            <AppRoutes isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         </div>
     );
 }

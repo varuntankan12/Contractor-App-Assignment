@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
-const Signup = () => {
+const Signup = ({ setIsLoggedIn }) => {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -60,6 +60,7 @@ const Signup = () => {
         localStorage.setItem("users", JSON.stringify(existingUsers));
 
         setError("");
+        setIsLoggedIn(true);
         navigate("/login");
     };
 

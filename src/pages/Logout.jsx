@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Logout = () => {
+const Logout = ({ setIsLoggedIn }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,6 +16,7 @@ const Logout = () => {
         localStorage.setItem("users", JSON.stringify(updatedUsers));
 
         alert("You have been logged out successfully.");
+        setIsLoggedIn(false);
         navigate("/login");
     }, [navigate]);
 
